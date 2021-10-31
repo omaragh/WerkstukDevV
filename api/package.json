@@ -1,0 +1,25 @@
+{
+  "name": "werkstukdevv",
+  "version": "1.0.0",
+  "description": "Simple overview of use/purpose.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omaragh/WerkstukDevV.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/omaragh/WerkstukDevV/issues"
+  },
+  "homepage": "https://github.com/omaragh/WerkstukDevV#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.14",
+    "postgres": "^1.0.2"
+  }
+}
