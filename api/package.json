@@ -4,8 +4,11 @@
   "description": "Simple overview of use/purpose.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon src/listen.js",
+    "migrate": "knex migrate:latest",
+    "unmigrate": "knex migrate:rollback",
+    "seed": "knex seed:run ",
+    "test": "jest --watchAll"
   },
   "repository": {
     "type": "git",
@@ -18,8 +21,15 @@
   },
   "homepage": "https://github.com/omaragh/WerkstukDevV#readme",
   "dependencies": {
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "jest": "^27.3.1",
+    "knex": "^0.95.13",
     "nodemon": "^2.0.14",
-    "postgres": "^1.0.2"
-  }
+    "pg": "^8.7.1",
+    "postgres": "^1.0.2",
+    "supertest": "^6.1.6",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {}
 }

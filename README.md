@@ -1,6 +1,6 @@
-# Project Title
+# Anymate
 
-Simple overview of use/purpose.
+Api for users and uploaded 3D models
 
 ## Description
 

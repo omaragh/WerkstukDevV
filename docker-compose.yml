@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: dev_api
+    build: './api'
+    environment:
+      PG_CONNECTION_STRING: postgres://yrkvklrh:C0UnGZ-wWcCZgLSmZSvky83lnqBMAtnF@tai.db.elephantsql.com/yrkvklrh
+    ports:
+      - 3000:3000
+    volumes:
+      - ./api/src:/workdir/src
+
+  db:
+    container_name: dev_store   
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: C0UnGZ-wWcCZgLSmZSvky83lnqBMAtnF
+      POSTGRES_USER: yrkvklrh
+      POSTGRES_DB: yrkvklrh
+      POSTGRES_HOST_AUTH_METHOD: 
+    ports:
+      - 5432:5432
