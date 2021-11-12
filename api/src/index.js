@@ -1,12 +1,17 @@
 const express = require("express");
 const app = express();
 const key = require('./uuid');
+const {createTable} = require("./Helpers/dbHelper");
 
 const db = require('knex')({
   client: 'pg',
-  version: '9.6',
-  searchPath: ['knex', 'public'],
-  connection: process.env.PG_CONNECTION_STRING ? process.env.PG_CONNECTION_STRING : 'postgres://yrkvklrh:C0UnGZ-wWcCZgLSmZSvky83lnqBMAtnF@tai.db.elephantsql.com/yrkvklrh'
+  connection: {
+    host : process.env.POSTGRES_HOST,
+    port : 5432,
+    user : process.env.POSTGRES_USER,
+    password : process.env.POSTGRES_PASSWORD,
+    database : process.env.POSTGRES_DATABASE
+  }
 });
 
 app.use(express.json());
@@ -53,18 +58,8 @@ app.delete('/deleteUser/:uuid', async (req, res) => {
  * @param
  * @returns a table user with the neccessary rows
  */
-async function createTable() {
-  await db.schema.hasTable('users').then(async (exists) => {
-    if (!exists) {await db.schema.createTable('users', (table) => {
-          table.uuid('uuid');
-          table.string('name');
-          table.string('age');
-        }).then(async () => {console.log('created new table users');
-      });
-    }
-  });
-}
-createTable()
+
+createTable(db);
 module.exports = app
 
 
