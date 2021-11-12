@@ -1,6 +1,6 @@
 FROM node:latest
 
-WORKDIR /usr/api/src
+WORKDIR /usr/api
 
 COPY package*json ./
 
