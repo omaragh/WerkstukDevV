@@ -4,7 +4,7 @@
   "description": "Simple overview of use/purpose.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/listen.js",
+    "start": "nodemon --legacy-watch src/listen.js",
     "migrate": "knex migrate:latest",
     "unmigrate": "knex migrate:rollback",
     "seed": "knex seed:run ",
