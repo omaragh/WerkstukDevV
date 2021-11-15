@@ -1,10 +1,10 @@
 # Anymate
 
-Api for users and uploaded 3D models
+Api for users and uploaded 3D models V1
 
 ## Description
 
-list of endpoints to retrieve and push data to the db
+list of endpoints to retrieve, delete and push user data to the db
 
 ## Getting Started
 
@@ -16,7 +16,6 @@ list of endpoints to retrieve and push data to the db
 * knex
 * nodemon
 * pg
-* postgres
 * supertest
 * uuid
 
@@ -27,7 +26,12 @@ list of endpoints to retrieve and push data to the db
 
 ### Executing program
 
-* npm start (to run)
+* Docker-compose build
+* Docker-compose up
+
+to test:
+* npm test
+
 endpoints:
 GET /users
 GET /user:uuid

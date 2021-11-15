@@ -17,10 +17,18 @@ const db = require('knex')({
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+/** Get root route
+ * 
+ * @returns a message that shows the server is up and running
+ */
 app.get("/", async (req, res) => {
   res.json({message: "Server depoloyed!"});
 });
 
+/** Get all users
+ * 
+ * @returns json object of all users
+ */
 app.get('/users', async (req, res) => {
   const result = await db
   .select("*")
@@ -29,7 +37,7 @@ app.get('/users', async (req, res) => {
 });
 
 /**  Creates a user with the given data
- * @params 
+ * @params uuid, name, age - user data to be sent
  * @returns all the inserted data
  */
 app.post('/user', async (req, res) => {
@@ -49,7 +57,7 @@ app.post('/user', async (req, res) => {
 });
 
 /** Delete all data of a user based on a unique identifier
- * @param
+ * @params uuid - deleting the user after incorporating the id in the route
  * @returns the deleted user
  */
 app.delete('/deleteUser/:uuid', async (req, res) => {
@@ -66,7 +74,7 @@ app.delete('/deleteUser/:uuid', async (req, res) => {
 });
 
 /** Delete all users
- * @param
+ * 
  * @returns the deleted users
  */
 app.delete('/deleteUsers', async (req, res) =>{
