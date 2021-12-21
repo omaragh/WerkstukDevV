@@ -22,6 +22,7 @@ app.use(express.urlencoded({extended: true}));
  * @returns a message that shows the server is up and running
  */
 app.get("/", async (req, res) => {
+  console.log(process.env.DB_PASSWORD);
   res.json({message: "Server depoloyed!"});
 });
 
