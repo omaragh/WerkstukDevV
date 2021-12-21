@@ -7,7 +7,6 @@
     await db.schema.hasTable('users').then(async (exists) => {
       if (!exists) {
           return db.schema.createTable('users', (table) => {
-            table.increments("id").primary();
             table.uuid('uuid');
             table.string('name');
             table.string('age');
@@ -23,10 +22,9 @@
     await db.schema.hasTable('models').then(async (exists)=> {
       if (!exists){
         return db.schema.createTable('models', (table)=>{
-          table.increments("id").primary();
+          table.uuid('uuid');
           table.string('title');
-          table.string('Create date');
-          table.string('Created by');
+          table.string('CreatedBy');
         }).then(async ()=>{
           console.log('created new table models');
         });
