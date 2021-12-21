@@ -19,4 +19,20 @@
     });
   }
 
-  module.exports = {createTable}
+  async function createModelsTable(db){
+    await db.schema.hasTable('models').then(async (exists)=> {
+      if (!exists){
+        return db.schema.createTable('models', (table)=>{
+          table.increments("id").primary();
+          table.string('title');
+          table.string('Create date');
+          table.string('Created by');
+        }).then(async ()=>{
+          console.log('created new table models');
+        });
+      }else{
+        console.log("model table already exists");
+      }
+    });
+  }
+  module.exports = {createTable, createModelsTable}
