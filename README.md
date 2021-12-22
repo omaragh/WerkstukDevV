@@ -4,9 +4,10 @@ Api for users and uploaded 3D models V1
 
 ## Description
 
-list of endpoints to retrieve, delete and push user data to the db
+list of endpoints to retrieve, delete and push user data to the db, users can post a model, edit and delete it from the models db
 
 ## Getting Started
+to execute  the program use this command: docker-compose up --build
 
 ### Dependencies
 
@@ -19,24 +20,18 @@ list of endpoints to retrieve, delete and push user data to the db
 * supertest
 * uuid
 
-### Installing
-
-* npm install
-
-
-### Executing program
-
-* Docker-compose build
-* Docker-compose up
-
-to test:
-* npm test
-
 endpoints:
 GET /users
-GET /user:uuid
+GET /user/:uuid
 POST /user
-DELETE /deleteUser/uuid
+PATCH /user/:uuid
+DELETE /user/uuid
+
+GET /models
+GET /model/:uuid
+POST /model
+PATCH /model/:uuid
+DELETE /model/:uuid
 
 ## Authors
 
