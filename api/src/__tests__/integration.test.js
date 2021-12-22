@@ -29,18 +29,19 @@ describe ("save user data to db, fetch all users, fetch, edit and delete the use
         expect(typeof resp.body).toBe("object");
     });
 
-    test('PUT /user/:uuid returns modified user data based on uuid', async ()=>{
+    test('PUT /user/:uuid returns modified user data based on uuid', (done)=>{
         request.put(`/user/${idP}`)
         .send({uuid: idP, name: "Omar edited"})
         .then((resp)=>{
             expect(resp.status).toBe(200);
-        }).catch((e)=>{
+            done();
+        }).catch((resp)=>{
             expect(resp.status).toBe(400);
-            done(e)
+            done()
         })
 
     })
-    test('DELETE /deleteUser/:uuid', (done)=>{
+    test('DELETE /user/:uuid', (done)=>{
         request.delete(`/user/${idP}`)
         .then((resp)=>{
             expect(resp.status).toBe(200);
@@ -51,5 +52,53 @@ describe ("save user data to db, fetch all users, fetch, edit and delete the use
             done(e)
         })
     });
-})
+});
 
+describe('insert model data, get all models, get, edit and delete model', ()=>{
+    const idM = key.generateUUID();
+    test('returns status code 200 if model is passed', (done) =>{
+        request.post('/model')
+        .send({uuid: idM, title: "running man", CreatedBy:"Omar"})
+        .then((response)=>{
+            expect(response.status).toBe(200);
+            done();
+        })
+        .catch((e)=>{
+            done(e)
+        })
+    });
+
+    test('GET /models returns models from db & 200', async ()=>{
+        const resp = await request.get('/models');
+        expect(resp.statusCode).toBe(200);
+        expect(typeof resp.body).toBe("object");
+    });
+
+    test('GET /model/:uuid returns model based on uuid', async ()=>{
+        const resp = await request.get(`/model/${idM}`);
+        expect(resp.statusCode).toBe(200);
+        expect(typeof resp.body).toBe("object");
+    });
+
+    test('PUT /model/:uuid returns modified model data based on uuid', (done)=>{
+        request.put(`/model/${idM}`)
+        .send({uuid: idM, title: "edited title"})
+        .then((resp)=>{
+            expect(resp.status).toBe(200);
+            done();
+        }).catch((e)=>{
+            done(e)
+        })
+
+    })
+    test('DELETE /model/:uuid', (done)=>{
+        request.delete(`/model/${idM}`)
+        .then((resp)=>{
+            expect(resp.status).toBe(200);
+            done();
+        })
+        .catch((e)=>{
+            done(e)
+        })
+    });
+});
