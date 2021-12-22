@@ -81,7 +81,7 @@ app.post('/user', async (req, res) => {
  * @params Send data through the body to change the details that will be modified.
  * @returns Returns status 200/OK
  */
- app.put("/user/:uuid", async (req, res) => {
+ app.patch("/user/:uuid", async (req, res) => {
    if(req.params.uuid){
      const result = await db
      .table("users")
@@ -180,7 +180,7 @@ app.post('/model', async (req,res) =>{
  * @params Send data through the body to change the details that will be modified.
  * @returns Returns status 200/OK
  */
-app.put("/model/:uuid", async (req, res) => {
+app.patch("/model/:uuid", async (req, res) => {
   if(req.params.uuid){
     const result = await db
     .table("models")
@@ -199,10 +199,10 @@ app.put("/model/:uuid", async (req, res) => {
  app.delete('/model/:uuid', async (req, res) => {
   if (req.params.uuid){
     const result = await db
-    .table('users')
+    .table('models')
     .where({uuid: req.params.uuid})
     .del('*')
-    console.log(`Deleting user: ${req.params.uuid}`)
+    console.log(`Deleting model: ${req.params.uuid}`)
     res.status(200).send(result);
   }else{
     res.status(400).send("id not found");
