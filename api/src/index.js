@@ -22,7 +22,6 @@ app.use(express.urlencoded({extended: true}));
  * @returns a message that shows the server is up and running
  */
 app.get("/", async (req, res) => {
-  console.log(process.env.DB_PASSWORD);
   res.json({message: "Server depoloyed!"});
 });
 
@@ -34,6 +33,7 @@ app.get('/users', async (req, res) => {
   const result = await db
   .select("*")
   .from('users');
+  console.log(`all users in db : ${JSON.stringify(result)}`)
   res.json(result);
 });
 
@@ -43,7 +43,8 @@ app.get('/users', async (req, res) => {
  */
  app.get('/user/:uuid', async (req, res) => {
   const result = await db.select(['*']).from('users').where({uuid: req.params.uuid})
-  res.json(result)
+  console.log(`logged in as : ${JSON.stringify(result)}`)
+  res.status(200).json(result)
 });
 
 /**  Creates a user with the given data
@@ -57,7 +58,6 @@ app.post('/user', async (req, res) => {
   for(let i = 0; i<data.length; i++){
     info.push(data[i].uuid);
   }
-  console.log(info);
 
   if (!req.body.uuid || !req.body.name || !req.body.age) {
     res.status(400).json('incomplete data');
@@ -69,7 +69,7 @@ app.post('/user', async (req, res) => {
       name: req.body.name,
       age: req.body.age
     }, ]).table('users').returning('*').then((res) => {
-      console.log(`Added user ${req.body.name && req.body.uuid}`);
+      console.log(`Added user ${req.body.name + ", " + req.body.uuid}`);
       return res;
     });
     res.send(result);
@@ -137,9 +137,9 @@ app.delete('/users', async (req, res) =>{
   res.json(result);
 })
 
-/** Get a user based on a unique identifier
- * @params send uuid as param to fetch the user
- * @returns all user data
+/** Get a model based on a unique identifier
+ * @params send uuid as param to fetch the model
+ * @returns all model data
  */
  app.get('/model/:uuid', async (req, res) => {
   const result = await db.select(['*']).from('models').where({uuid: req.params.uuid})
@@ -147,7 +147,7 @@ app.delete('/users', async (req, res) =>{
 });
 /**
  * Uploads model by user
- * @params title, create date, creator name
+ * @params uuid, title, creator name
  * @returns all the inserted data
  */
 app.post('/model', async (req,res) =>{
@@ -157,7 +157,7 @@ app.post('/model', async (req,res) =>{
   for(let i = 0; i<data.length; i++){
     info.push(data[i].uuid);
   }
-  console.log(info);
+
   if (!req.body.uuid || !req.body.title || !req.body.CreatedBy){
     res.status(400).json("incomplete data");
   }else if (info.includes(req.body.uuid)){ 
@@ -175,6 +175,11 @@ app.post('/model', async (req,res) =>{
   }
 })
 
+/**
+ * Change details of the model
+ * @params Send data through the body to change the details that will be modified.
+ * @returns Returns status 200/OK
+ */
 app.put("/model/:uuid", async (req, res) => {
   if(req.params.uuid){
     const result = await db
@@ -217,6 +222,7 @@ app.put("/model/:uuid", async (req, res) => {
   });
   res.send(result);
 })
+
 createModelsTable(db);
 createTable(db);
 module.exports = app
