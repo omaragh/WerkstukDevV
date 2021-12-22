@@ -2,6 +2,7 @@ const supertest = require('supertest');
 const app = require('../index')
 const request = supertest(app);
 const key = require('../uuid');
+jest.useFakeTimers()
 
 describe ("save user data to db, fetch all users, fetch, edit and delete the user", ()=>{
     const idP = key.generateUUID();
@@ -29,14 +30,14 @@ describe ("save user data to db, fetch all users, fetch, edit and delete the use
         expect(typeof resp.body).toBe("object");
     });
 
-    test('PUT /user/:uuid returns modified user data based on uuid', (done)=>{
-        request.put(`/user/${idP}`)
+    test('patch /user/:uuid returns modified user data based on uuid', (done)=>{
+        request.patch(`/user/${idP}`)
         .send({uuid: idP, name: "Omar edited"})
         .then((resp)=>{
             expect(resp.status).toBe(200);
             done();
         }).catch((resp)=>{
-            expect(resp.status).toBe(400);
+            
             done()
         })
 
@@ -48,12 +49,13 @@ describe ("save user data to db, fetch all users, fetch, edit and delete the use
             done();
         })
         .catch((e)=>{
-            expect(resp.status).toBe(400);
+            
             done(e)
         })
     });
 });
 
+jest.useFakeTimers()
 describe('insert model data, get all models, get, edit and delete model', ()=>{
     const idM = key.generateUUID();
     test('returns status code 200 if model is passed', (done) =>{
@@ -80,8 +82,8 @@ describe('insert model data, get all models, get, edit and delete model', ()=>{
         expect(typeof resp.body).toBe("object");
     });
 
-    test('PUT /model/:uuid returns modified model data based on uuid', (done)=>{
-        request.put(`/model/${idM}`)
+    test('patch /model/:uuid returns modified model data based on uuid', (done)=>{
+        request.patch(`/model/${idM}`)
         .send({uuid: idM, title: "edited title"})
         .then((resp)=>{
             expect(resp.status).toBe(200);
