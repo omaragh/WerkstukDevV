@@ -18,6 +18,10 @@
     });
   }
 
+/** Creates a table for models
+ * @param
+ * @returns a table models with the neccessary rows
+ */
   async function createModelsTable(db){
     await db.schema.hasTable('models').then(async (exists)=> {
       if (!exists){
