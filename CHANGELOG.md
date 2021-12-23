@@ -39,3 +39,23 @@ Removed "postgres" dependency
 * Ver 1.5.7
 implemented complete integration tests on endpoints
 
+* Ver 1.6.7
+Added persistence to db data
+
+* Ver 1.7.7
+Finished all endpoints
+
+* Ver 1.7.8
+small logging fix & conventions
+
+* Ver 1.8.8
+Completed integration test for user endpoints
+
+* Ver 1.9.8
+Completed integration test for model endpoints
+
+* Ver 1.10.8
+Completed end to end tests
+
+* Ver 1.10.9
+Edited Readme file to be up to date
